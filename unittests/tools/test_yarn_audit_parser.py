@@ -59,6 +59,8 @@ class TestYarnAuditParser(DojoTestCase):
             self.assertEqual(2, len(findings))
             self.assertEqual(findings[0].cwe, 918)
             self.assertEqual(findings[1].cwe, 1035)
+            self.assertEqual(findings[1].cve, None)
+            self.assertEqual(findings[1].unsaved_vulnerability_ids[0], "CVE-2021-3807")
 
     def test_yarn_audit_parser_empty_with_error(self):
         with self.assertRaises(ValueError) as context:
@@ -76,3 +78,5 @@ class TestYarnAuditParser(DojoTestCase):
             findings = parser.get_findings(testfile, self.get_test())
             self.assertEqual(3, len(findings))
             self.assertEqual(findings[0].cwe, "1321")
+            self.assertEqual(findings[1].unsaved_vulnerability_ids[0], "CVE-2022-25851")
+            self.assertEqual(findings[1].cve, None)
