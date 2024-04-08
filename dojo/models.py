@@ -1656,7 +1656,7 @@ class Endpoint(models.Model):
                     action_string = 'Postgres does not accept NULL character. Attempting to replace with %00...'
                     for remove_str in null_char_list:
                         self.path = self.path.replace(remove_str, '%00')
-                    errors.append(ValidationError(f'Path "{old_value}" has invalid format - It contains the NULL character. The following action was taken: {action_string}'))
+                    logging.error(f'Path "{old_value}" has invalid format - It contains the NULL character. The following action was taken: {action_string}')
             if self.path == '':
                 self.path = None
 
@@ -1669,7 +1669,7 @@ class Endpoint(models.Model):
                     action_string = 'Postgres does not accept NULL character. Attempting to replace with %00...'
                     for remove_str in null_char_list:
                         self.query = self.query.replace(remove_str, '%00')
-                    errors.append(ValidationError(f'Query "{old_value}" has invalid format - It contains the NULL character. The following action was taken: {action_string}'))
+                    logging.error(f'Query "{old_value}" has invalid format - It contains the NULL character. The following action was taken: {action_string}')
             if self.query == '':
                 self.query = None
 
@@ -1682,7 +1682,7 @@ class Endpoint(models.Model):
                     action_string = 'Postgres does not accept NULL character. Attempting to replace with %00...'
                     for remove_str in null_char_list:
                         self.fragment = self.fragment.replace(remove_str, '%00')
-                    errors.append(ValidationError(f'Fragment "{old_value}" has invalid format - It contains the NULL character. The following action was taken: {action_string}'))
+                    logging.error(f'Fragment "{old_value}" has invalid format - It contains the NULL character. The following action was taken: {action_string}')
             if self.fragment == '':
                 self.fragment = None
 
