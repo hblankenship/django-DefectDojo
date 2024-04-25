@@ -28,13 +28,13 @@ class SonarQubeParser(object):
         else:
             return "Import all findings from sonarqube html report or JSON format. SonarQube output file can be imported in HTML format or JSON format. Generate with https://github.com/soprasteria/sonar-report version >= 1.1.0, recommend version >= 3.1.2"
 
-    def get_findings(self, filename, test):
-        if filename.name.strip().lower().endswith(".json"):
-            json_content = json.load(filename)
+    def get_findings(self, fileobj, test):
+        if fileobj.name.strip().lower().endswith(".json"):
+            json_content = json.load(fileobj)
             return self.get_json_items(json_content, test, self.mode)
         else:
             parser = etree.HTMLParser()
-            tree = etree.parse(filename, parser)
+            tree = etree.parse(fileobj, parser)
             if self.mode not in [None, "detailed"]:
                 raise ValueError(
                     "Internal error: Invalid mode "
